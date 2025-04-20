@@ -63,7 +63,9 @@ export const voteComment = async (vote : "UP" | "DOWN" | null, commentId : numbe
     try { 
         const session = await auth()
         if (!session) { 
-            return null
+            return {
+                error : "Please sign in to continue"
+            }
         }
         const result = await db.select().from(commentVotes).where(
             and(eq(commentVotes.authorId,session.user.id),eq(commentVotes.commentId,commentId),
@@ -88,9 +90,13 @@ export const voteComment = async (vote : "UP" | "DOWN" | null, commentId : numbe
         }
         
 
-        return vote
+        return {
+            success : vote
+        }
     } catch(error) { 
-        return null
+        return {
+            error : "Something went wrong"
+        }
     }
 }
 

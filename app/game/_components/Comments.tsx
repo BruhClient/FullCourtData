@@ -35,8 +35,8 @@ const CommentVote = ({id,initialVote,currentLikeAmt,currentDislikeAmt} : {id : n
     mutationKey : ["vote",id], 
     mutationFn : async (voteType :  "UP" | "DOWN"  ) => {
       const res = await voteComment(voteType,id)
-      if (!res) { 
-        throw Error()
+      if (res?.error) { 
+        throw Error(res.error)
       }
       return res
     },
@@ -73,8 +73,8 @@ const CommentVote = ({id,initialVote,currentLikeAmt,currentDislikeAmt} : {id : n
       }
       
     },
-    onError() { 
-      toast.error("Something went wrong")
+    onError(error) { 
+      toast.error(error.message)
       setVote(prevVote ?? null)
       setLikeAmt(prevLikeAmt ?? currentLikeAmt)
       setDislikeAmt(prevDislikeAmt ?? currentDislikeAmt)
@@ -137,7 +137,7 @@ const Comment = ({comment} : {comment : typeof comments.$inferSelect & {votes : 
           <div >
             {comment.text}
           </div>
-            {user && !comment.isPending && <CommentVote id={comment.id} currentLikeAmt={likes} currentDislikeAmt={dislikes} initialVote={vote}/>}
+            {!comment.isPending && <CommentVote id={comment.id} currentLikeAmt={likes} currentDislikeAmt={dislikes} initialVote={vote}/>}
             
 
         </div>
