@@ -15,8 +15,8 @@ const sofiaSans = Sofia_Sans({
 
 
 export const metadata: Metadata = {
-  title: "Maniacal AI",
-  description: "Ai PDF Summarizer with chat",
+  title: "Full Court Data",
+  description: "NBA Dashboard for Geeks",
   icons :{
     icon : "/icon.svg"
   },
@@ -24,18 +24,16 @@ export const metadata: Metadata = {
   metadataBase : new URL("https://www.maniacalai.com"), 
   twitter : { 
     card: "summary_large_image", 
-    site : "https://www.maniacalai.com", 
     creator : "@TravisAng", 
-    title : "Maniacal AI | Ai PDF Summarizer with chat", 
-    description : "View PDFs differently", 
-    images: ["feature.png"]
+    title : "Full Court Data | NBA Dashboard for Geeks", 
+    description : "View NBA differently", 
+    
   }, 
   openGraph : { 
-    title : "Maniacal AI | Ai PDF Summarizer with chat", 
-    description : "Maniacal AI", 
-    url : "https://www.maniacalai.com",
+    title : "Full Court Data | NBA Dashboard for Geeks", 
+    description : "View NBA differently", 
     siteName :"Recursion Error",
-    images: ["feature.png"], 
+  
 
   }
 };
