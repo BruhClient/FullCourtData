@@ -3,12 +3,13 @@
 import useSessionUser from "@/hooks/use-session-user";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { LogOut, Settings, Sparkles, User, Wallet } from "lucide-react";
+import { LogOut, Settings, Sparkles, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { Skeleton } from "../ui/skeleton";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import EditProfileForm from "../forms/profile";
 import ProfileImageUploader from "../ProfileImageUploader";
+import { ModeToggle } from "../ModeToggle";
 
 function UserProfile() {
     const user = useSessionUser()
@@ -62,15 +63,16 @@ function UserProfile() {
                 </Dialog>
                 
            
-            <DropdownMenuItem >
-                <Wallet /> Billing
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut({
                 callbackUrl : "/signin"
             })}>
                 <LogOut />Sign out
             </DropdownMenuItem>
+
+            <div className="px-1 py-1 flex justify-end" >
+                <ModeToggle />
+            </div>
         </DropdownMenuContent>
     </DropdownMenu> );
 }

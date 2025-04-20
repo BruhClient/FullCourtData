@@ -13,6 +13,7 @@ export const env = createEnv({
     AUTH_GITHUB_SECRET: z.string(),
     AUTH_DRIZZLE_URL: z.string(),
     UPLOADTHING_TOKEN:z.string(),
+    API_KEY:z.string(), 
   },
   experimental__runtimeEnv: process.env,
 })

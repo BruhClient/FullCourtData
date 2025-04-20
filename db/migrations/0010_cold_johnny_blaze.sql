@@ -1,0 +1,1 @@
+ALTER TABLE "commentVote" ALTER COLUMN "author_id" SET DATA TYPE text;

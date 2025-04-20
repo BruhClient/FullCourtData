@@ -1,0 +1,1 @@
+ALTER TABLE "commentVote" ALTER COLUMN "commentId" SET DATA TYPE integer;

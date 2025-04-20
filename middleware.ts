@@ -41,19 +41,7 @@ export default auth((req) => {
     
     
 
-    if (isAuthRoute) { 
-        if (isLoggedIn) { 
-            return NextResponse.redirect(new URL("/dashboard",nextUrl))
-        }
-        return NextResponse.next()
-    }
-
-    if (!isPublicRoute) { 
-        if (isLoggedIn) { 
-            return NextResponse.next()
-        }
-        return NextResponse.redirect(new URL("/signup",nextUrl))
-    } 
+     
    
     
     

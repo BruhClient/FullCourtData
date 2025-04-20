@@ -3,8 +3,9 @@ import { Geist_Mono, Sofia_Sans } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ModeToggle } from "@/components/ModeToggle";
 import { Toaster } from 'react-hot-toast';
+import Navbar from "@/components/common/Navbar";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 const sofiaSans = Sofia_Sans({
   variable: "--font-sofia-sans",
@@ -36,22 +37,25 @@ export default function RootLayout({
       >
         <ThemeProvider 
         attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
+        defaultTheme="light"
+        
+        
         >
+          <ReactQueryProvider>
+
+          
           
         <SessionProvider>
-         
+          <Navbar />
           {authModal}
           {children}
           <Toaster />
   
         </SessionProvider>
 
-        <div className="fixed bottom-4 right-4">
-          <ModeToggle />
-        </div>
+        </ReactQueryProvider>
+
+        
         </ThemeProvider>
       </body>
 

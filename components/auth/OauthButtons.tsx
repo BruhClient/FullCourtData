@@ -10,7 +10,7 @@ function OauthButtons() {
 
     const OauthLogin = async (provider : "google" | "github") => { 
         await signIn(provider,{
-            callbackUrl : "/dashboard" , 
+            callbackUrl : "/" , 
 
         })
     }

@@ -44,7 +44,7 @@ function SignInForm() {
                 
                if (data.success) {
              
-                window.location.href = "/dashboard"
+                window.location.href = "/"
             }
                 
                         

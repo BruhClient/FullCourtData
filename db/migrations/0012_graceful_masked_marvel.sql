@@ -1,0 +1,4 @@
+ALTER TABLE "commentVote" ALTER COLUMN "author_id" SET NOT NULL;--> statement-breakpoint
+ALTER TABLE "commentVote" ADD CONSTRAINT "commentVote_author_id_user_id_fk" FOREIGN KEY ("author_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "commentVote" ADD CONSTRAINT "commentVote_commentId_comments_id_fk" FOREIGN KEY ("commentId") REFERENCES "public"."comments"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "comments" ADD CONSTRAINT "comments_author_id_user_id_fk" FOREIGN KEY ("author_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;

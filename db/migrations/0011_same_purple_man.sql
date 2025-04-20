@@ -1,0 +1,1 @@
+ALTER TABLE "commentVote" DROP COLUMN "gameId";

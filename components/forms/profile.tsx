@@ -11,6 +11,7 @@ import { EditProfilePayload, EditProfileSchema } from "@/schema/edit-profile";
 import { editProfile } from "@/server/actions/auth/edit-profile";
 import { useSession } from "next-auth/react";
 import {ClipLoader} from "react-spinners"
+import { useQueryClient } from "@tanstack/react-query";
 
 
  
@@ -29,7 +30,7 @@ const EditProfileForm = () => {
 
     
     const [isPending,startTransition] = useTransition()
-    
+    const queryClient = useQueryClient()
     
     const onSubmit = (values : EditProfilePayload) => { 
 
@@ -38,7 +39,8 @@ const EditProfileForm = () => {
                 if (data.error) toast.error(data.error)
                 if (data.success) toast.success(data.success)
                 update()
-
+                
+                queryClient.invalidateQueries({queryKey : ["comments"]})
             })
         })
 

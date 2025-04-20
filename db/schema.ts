@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   timestamp,
@@ -5,7 +6,8 @@ import {
   text,
   primaryKey,
   integer,
-  pgEnum
+  pgEnum,
+  serial
 } from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "next-auth/adapters"
 
@@ -14,6 +16,8 @@ import type { AdapterAccountType } from "next-auth/adapters"
 
 
 export const userRoleEnum = pgEnum("user_role", ["admin", "user", "editor"]);
+
+export const commentVoteEnum = pgEnum("comment_vote", ["UP","DOWN"]);
 
 
 export const users = pgTable("user", {
@@ -29,8 +33,15 @@ export const users = pgTable("user", {
   hashedPassword : text("hashedPassword"), 
   isOauth : boolean("isOauth"),
   image: text("image"),
+  
 })
  
+export const usersRelations = relations(users, ({ many }) => ({
+	comments: many(comments),
+  commentVote : many(commentVotes)
+})) 
+
+
 export const accounts = pgTable(
   "account",
   {
@@ -89,4 +100,49 @@ export const passwordTokens = pgTable(
     },
     
   )
+
+export const comments = pgTable('comments', {
+  id: serial('id').primaryKey(),
+  text: text('text').notNull(),
+  gameId : text("gameId").notNull(),
+  authorId: text('author_id').notNull().references(() => users.id,{ onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  
+ 
+});
+
+export const commentsRelations = relations(comments, ({ one,many }) => ({
+    author: one(users, {
+      fields: [comments.authorId],
+      references: [users.id],
+    }),
+    votes : many(commentVotes)
+}));
+
+export const commentVotes = pgTable('commentVote', {
+  id: serial('id').primaryKey(),
+  vote: commentVoteEnum('vote').default("UP").notNull(),
+  authorId: text('author_id').notNull().references(() => users.id,{ onDelete: "cascade" }),
+  commentId : integer("commentId").notNull().references(() => comments.id,{ onDelete: "cascade" })
+ 
+});
+
+export const commentVoteRelations = relations(commentVotes, ({ one }) => ({
+  author: one(users, {
+    fields: [commentVotes.authorId],
+    references: [users.id],
+  }),
+  comment : one(comments, { 
+    fields : [commentVotes.commentId], 
+    references : [comments.id]
+  })
+}));
+
+
+
+
+  
+
+
+
  
