@@ -7,7 +7,7 @@ import { BarGraph } from './BarGraph'
 const TeamComparison = ({teams,game} : {game : Game,teams : {team : Team , statistics : Statistics[]}[]}) => {
     const home = teams[0]
     const visitors = teams[1]
-    const chartData = getChartConfig(game.scores.home.linescore,game.scores.visitors.linescore,home.team.nickname,visitors.team.nickname)
+    const chartData = getChartConfig(game.scores.home.linescore,game.scores.visitors.linescore)
     
   return (
     <div className='w-full flex justify-center flex-col items-center max-w-[400px] gap-4 '>
