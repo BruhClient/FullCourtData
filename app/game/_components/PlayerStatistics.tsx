@@ -49,7 +49,7 @@ const PlayerStatistics = async ({gameId,home,visitors} : {gameId : string,home :
     }
 
     
-
+    
 
   return (
     <div className='w-full flex justify-center gap-6 flex-col items-center'>
@@ -101,7 +101,7 @@ const StatHeader = () => {
             STL
         </div>
         <div>
-            BLK
+            MIN
         </div>
     </div>
   </div>
@@ -123,7 +123,7 @@ const PlayerStats = ({player ,stats} : {player : Player , stats : Statistics}) =
         {stats.steals}
         </div>
         <div>
-        {stats.blocks}
+        {stats.min}
         </div>
     </div>
   </div>

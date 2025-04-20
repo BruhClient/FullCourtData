@@ -117,6 +117,7 @@ export type Statistics = {
     ftm : number , 
     fga : number ,
     fgm : number , 
+    min : string,
     
     
 
