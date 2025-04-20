@@ -22,7 +22,7 @@ const PlayerStatistics = async ({gameId,home,visitors} : {gameId : string,home :
         const homeStats = [] as ({player : Player,team : Team, game : { id : number},} & Statistics)[];
         const visitorsStats = [] as ({player : Player,team : Team, game : { id : number},} & Statistics)[];
 
-        data.forEach((stats) => { 
+        data?.forEach((stats) => { 
 
             if (stats.blocks === null) { 
                 return null
@@ -44,9 +44,11 @@ const PlayerStatistics = async ({gameId,home,visitors} : {gameId : string,home :
         console.log(error)
     }
 
-    if (!result) { 
+    if (!result || result.visitors.length === 0 || result.home.length === 0) { 
         return null
     }
+
+    
 
 
   return (

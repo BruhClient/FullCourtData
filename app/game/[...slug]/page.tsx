@@ -18,6 +18,7 @@ const GameDetails = async ({params} : {params : Promise<{slug : string}>}) => {
     
     if (!data) redirect("/")
 
+
     
   return (
     <div className='flex justify-center w-full px-5 flex-col items-center gap-5 py-5'>
@@ -27,6 +28,7 @@ const GameDetails = async ({params} : {params : Promise<{slug : string}>}) => {
         
         <GameHeader teams={data.teams} game={data.game}/>
         {status === "Finished" && <TeamComparison teams={data.teams} game={data.game}/>}
+        
         <PlayerStatistics gameId={slug} home={data.game.teams.home.name} visitors={data.game.teams.visitors.name} />
         <Comments id={slug}/> 
     </div>
