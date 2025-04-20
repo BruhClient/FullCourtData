@@ -28,7 +28,7 @@ export function BarGraph({home,visitor,chartData}: {home : string , visitor : st
       } satisfies ChartConfig
      
   return (
-    <div className="max-w-[500px] w-full">
+    <div className=" w-full">
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />

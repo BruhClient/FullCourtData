@@ -42,6 +42,8 @@ export async function getTeam(team : string) {
 export async function getTeamStats(id : string) { 
     "use cache"
     unstable_cacheLife("hours")
+
+    
     try { 
         const season = await getCurrentSeason()
         const url = `https://api-nba-v1.p.rapidapi.com/teams/statistics?id=${id}&season=${season}`;
@@ -138,7 +140,7 @@ export async function getGameStats(id  : string) {
     unstable_cacheLife("minutes")
     
    
-
+  
     try { 
         
         const url = `https://api-nba-v1.p.rapidapi.com/games/statistics?id=${id}`;
@@ -155,16 +157,19 @@ export async function getGameStats(id  : string) {
         
         const response = await fetch(url, options).then((data) => data.json())
 
+        
         if (!response.response) return null
       
         const data = response?.response as {team : Team,statistics : Statistics[]}[]
+        
+
         
         
         const gameUrl = `https://api-nba-v1.p.rapidapi.com/games?id=${id}`;
 
         const gameResponse = await fetch(gameUrl, options).then((data) => data.json())
 
-        
+   
         const gameData = gameResponse?.response[0] as Game
     
     
@@ -178,7 +183,7 @@ export async function getGameStats(id  : string) {
 export async function getPlayerStats(id  : string) { 
     "use cache"
     unstable_cacheLife("minutes")
-    
+
 
     try { 
         const season = await getCurrentSeason()

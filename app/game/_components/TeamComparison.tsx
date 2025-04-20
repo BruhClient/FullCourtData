@@ -10,7 +10,7 @@ const TeamComparison = ({teams,game} : {game : Game,teams : {team : Team , stati
     const chartData = getChartConfig(game.scores.home.linescore,game.scores.visitors.linescore)
     
   return (
-    <div className='w-full flex justify-center flex-col items-center max-w-[400px] gap-4 '>
+    <div className='w-full flex justify-center flex-col items-center max-w-[600px] gap-4 '>
       <div className='text-xl font-bold flex flex-col'>
           Match Overview
           <div className='bg-primary w-1/3 h-2 self-center rounded-lg'/>

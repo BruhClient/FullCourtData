@@ -53,7 +53,7 @@ const PlayerStatistics = async ({gameId,home,visitors} : {gameId : string,home :
 
   return (
     <div className='w-full flex justify-center gap-6 flex-col items-center'>
-            <div className='flex flex-col justify-between max-w-[500px] gap-2 w-full h-fit '>
+            <div className='flex flex-col justify-between max-w-[600px] gap-2 w-full h-fit '>
 
             <div className='text-muted-foreground'>
                 Player Stats - {result.home[0].team.name}
@@ -65,7 +65,7 @@ const PlayerStatistics = async ({gameId,home,visitors} : {gameId : string,home :
             })}
 
             </div>
-            <div className='flex flex-col justify-between max-w-[500px] gap-2 w-full h-fit '>
+            <div className='flex flex-col justify-between max-w-[600px] gap-2 w-full h-fit '>
 
                 <div className='text-muted-foreground'>
                     Player Stats - {result.visitors[0].team.name}

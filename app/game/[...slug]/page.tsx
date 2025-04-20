@@ -16,6 +16,7 @@ const GameDetails = async ({params} : {params : Promise<{slug : string}>}) => {
 
     const status = data?.game.status.long
     
+    console.log(data)
     if (!data) redirect("/")
 
 
