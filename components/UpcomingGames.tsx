@@ -1,14 +1,13 @@
 
 
-import { env } from '@/data/env/server';
-import { getEasternDate, getStageName } from '@/lib/utils';
+import { getStageName } from '@/lib/utils';
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Game } from '@/types/api';
 import FallbackImage from './FallbackImage';
 import { format } from 'date-fns-tz';
-import { unstable_cacheLife } from 'next/cache';
 import Link from 'next/link';
+import { getUpcomingGames } from '@/server/actions/api';
 
 const TeamScore = ({team,score} : {team : Game["teams"]["home" | "visitors"],score : Game["scores"]["visitors" | "home"] }) => {
   return <div className='flex gap-3 items-center'>
@@ -110,37 +109,12 @@ const GameOverview = ({game} : {game :Game}) => {
 }
 
 const UpcomingGames = async () => {
-  "use cache"
-  unstable_cacheLife("minutes")
-  
-  const url = `https://api-nba-v1.p.rapidapi.com/games?date=${getEasternDate()}`;
-  const options = {
-    method: 'GET',
-    headers: {
-      'x-rapidapi-key': env.API_KEY,
-      'x-rapidapi-host': 'api-nba-v1.p.rapidapi.com', 
-    }, 
-    
-  };
-
   
   
-  
-  const data = await fetch(url, options).then((res) => res.json()).catch(() => null);
-
-  
-  if (!data?.response) return null 
-  let games = data.response.reverse() as Game[]
+  const games = await getUpcomingGames()
 
 
-  const prev_url = `https://api-nba-v1.p.rapidapi.com/games?date=${getEasternDate(1)}`;
-  const prev_data = await fetch(prev_url, options).then((res) => res.json()).catch(() => null);
-
-
-  const prev_games = prev_data.response as Game[]
-  if (!prev_data?.response) return null 
-  games = [...games,...prev_games]
-
+  if (!games) return null
   
   
   

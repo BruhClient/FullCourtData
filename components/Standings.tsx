@@ -1,36 +1,20 @@
 
-import { format } from 'date-fns';
+
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Standings } from '@/types/api';
 import FallbackImage from './FallbackImage';
 import { cn, decimalToPercentage, findStat } from '@/lib/utils';
 import Link from 'next/link';
-import { unstable_cacheLife } from 'next/cache';
-import { env } from '@/data/env/server';
+import { getStandings } from '@/server/actions/api';
 
 
 const ConferenceStandings = async () => {
-    "use cache"
-    unstable_cacheLife("hours")
-    
-    const season = format(new Date(),"yyyy")
-
-    
-   
-    const url = `https://nba-api-free-data.p.rapidapi.com/nba-conference-standings?year=${season}`;
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': env.API_KEY,
-            'x-rapidapi-host': 'nba-api-free-data.p.rapidapi.com'
-        }, 
-        
-    };
-
     
 
-	const data = await fetch(url, options).then((data) => data.json() ).catch((error) => {error});
+    const data = await getStandings()
+    
+    
     
     if (!data?.response) { 
         return null

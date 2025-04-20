@@ -1,7 +1,9 @@
 "use server"
 
 import { env } from "@/data/env/server";
+import { getEasternDate } from "@/lib/utils";
 import { Game, Player, Team, Statistics, PlayerStatistics } from "@/types/api";
+import { format } from "date-fns";
 import { unstable_cacheLife } from "next/cache";
 
 
@@ -242,6 +244,80 @@ export async function getPlayer(id  : string) {
     
     
         return data
+    } catch { 
+        return null
+    }
+    
+}
+
+export async function getStandings() { 
+    "use cache"
+    unstable_cacheLife("hours")
+    
+
+    try { 
+        
+        const season = format(new Date(),"yyyy")
+        
+            
+           
+        const url = `https://nba-api-free-data.p.rapidapi.com/nba-conference-standings?year=${season}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': env.API_KEY,
+                    'x-rapidapi-host': 'nba-api-free-data.p.rapidapi.com'
+                }, 
+                
+            };
+        
+            
+        
+        const data = await fetch(url, options).then((data) => data.json() )
+    
+        return data
+    } catch { 
+        return null
+    }
+    
+}
+
+
+export async function getUpcomingGames() { 
+    "use cache"
+    unstable_cacheLife("minutes")
+    
+
+    try { 
+        
+        const url = `https://api-nba-v1.p.rapidapi.com/games?date=${getEasternDate()}`;
+        const options = {
+            method: 'GET',
+            headers: {
+            'x-rapidapi-key': env.API_KEY,
+            'x-rapidapi-host': 'api-nba-v1.p.rapidapi.com', 
+            }, 
+            
+        };
+
+        
+        
+        
+        const data = await fetch(url, options).then((res) => res.json())
+
+        
+        
+        let games = data.response.reverse() as Game[]
+
+
+        const prev_url = `https://api-nba-v1.p.rapidapi.com/games?date=${getEasternDate(1)}`;
+        const prev_data = await fetch(prev_url, options).then((res) => res.json())
+
+
+        const prev_games = prev_data.response as Game[]
+        
+        games = [...games,...prev_games]
+        return games
     } catch { 
         return null
     }
